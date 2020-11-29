@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.js"></script>
+</head>
+<body>
+<h1>表单数据{{ users | length }}-----{{ counts }}</h1>
+
+<div>
+<form action="{% url 'user:search' %}" method="post">
+    {% csrf_token %}
+    <input type="search" name="search" placeholder="address">
+    <input type="submit" value="搜索">
+</form>
+    <p style="float: right">
+        {% if name %}
+        <a href="#">欢迎{{ name }}</a>
+        <a href="{% url 'user:logout' %}">注销</a>
+        {% else %}
+        <a href="{% url 'user:login' %}">登录</a>
+        <a href="{% url 'user:create' %}">注册</a>
+
+        {% endif %}
+    </p>
+</div><br>
+
+<table border="1" cellspacing="0" width="50%">
+    {% for us in users %}
+    <tr>
+        <td><a href="{% url 'user:detail' %}?id={{ us.id}}">{{ us.name }}</a></td>
+        <td>{{ us.address }}</td>
+        <td>{{ us.city }}</td>
+        <td>{{ us.state_province }}</td>
+        <td>{{ us.country }}</td>
+        <td>
+            <button class="btn">-</button>
+            <input type="text" value="1" style="width: 20px" name="number01">
+            <button class="btn1">+</button>
+        </td>
+        <td><a href="{% url 'user:delete' us.id %}">删除</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+<script>
+    $(function (){
+        $('.btn1').click(function (){
+            var num=parseInt($(this).prev().val())
+            num++;
+            $(this).prev().val(num)
+        })
+         $('.btn').click(function (){
+            var num=parseInt($(this).next().val())
+             if (num>1){
+                num--;
+             }
+            $(this).next().val(num)
+        })
+
+    })
+
+</script>
+
+</body>
+</html>

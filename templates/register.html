@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+<form action="{% url 'user:create' %}" method="POST">
+    {% csrf_token %}
+    <p><input type="text" name="name" placeholder="name">
+    <p><input type="password" name="password" placeholder="password">
+    <p><input type="text" name="address" placeholder="address">
+    <p><input type="text" name="city" placeholder="city">
+    <p><input type="text" name="state_province" placeholder="state_province">
+    <p><input type="text" name="country" placeholder="country"></p>
+    <input type="submit" value="submit">
+</form>
+
+</body>
+</html>
